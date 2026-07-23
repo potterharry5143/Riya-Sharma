@@ -55,7 +55,7 @@ function NormalCard({ image, intro, works }) {
               e.currentTarget.style.display = 'none';
               e.currentTarget.nextSibling.style.display = 'flex';
             }}
-            className="w-full max-h-52 object-cover object-top"
+            className="w-full max-h-44 sm:max-h-52 object-cover object-top"
           />
           <div style={{ display: 'none' }}
             className="w-full h-32 bg-gradient-to-br from-pink-100 to-purple-100
@@ -94,7 +94,7 @@ function NormalCard({ image, intro, works }) {
                 {works.map((work, i) => (
                   <motion.div key={i} variants={thumbItem}
                     whileHover={{ scale: 1.05, y: -2 }}
-                    className="flex-shrink-0 w-28 cursor-default">
+                    className="flex-shrink-0 w-24 sm:w-28 cursor-default">
                     <div className="w-28 h-24 rounded-xl overflow-hidden
                       bg-gradient-to-br from-pink-100 to-purple-100
                       border border-white/60 relative">

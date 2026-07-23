@@ -20,19 +20,14 @@ const itemVariants = {
   },
 };
 
-const badges = [
-  { emoji: '🎯', label: '8 Questions' },
-  { emoji: '⚡', label: 'Instant Feedback' },
-  { emoji: '🎉', label: 'Score Reveal' },
-  { emoji: '💬', label: 'AI Chatbot' },
-];
+
 
 export default function Hero() {
   const navigate = useNavigate();
 
   return (
     <motion.section
-      className="relative z-10 flex flex-col items-center justify-center text-center w-full max-w-xl mx-auto py-8"
+      className="relative z-10 flex flex-col items-center justify-center text-center w-full max-w-xl mx-auto py-4 sm:py-8 px-2"
       variants={containerVariants}
       initial="hidden"
       animate="visible"
@@ -63,14 +58,14 @@ export default function Hero() {
       </motion.div>
 
       {/* Emoji crown */}
-      <motion.div variants={itemVariants} className="text-5xl mb-2 select-none">
+      <motion.div variants={itemVariants} className="text-4xl sm:text-5xl mb-1 sm:mb-2 select-none">
         👑
       </motion.div>
 
       {/* Main heading */}
       <motion.h1
         variants={itemVariants}
-        className="text-4xl sm:text-5xl md:text-6xl font-black text-transparent bg-clip-text"
+        className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-transparent bg-clip-text leading-tight"
         style={{
           backgroundImage:
             'linear-gradient(135deg, var(--color-primary-hover) 0%, var(--color-text-main) 50%, var(--color-primary) 100%)',
@@ -85,11 +80,11 @@ export default function Hero() {
       {/* CTA buttons */}
       <motion.div
         variants={itemVariants}
-        className="flex justify-center mt-10"
+        className="flex justify-center mt-6 sm:mt-10 w-full"
       >
         <Button
           onClick={() => navigate('/quiz')}
-          className="text-lg px-10 py-4 shadow-xl shadow-theme-primary/50 animate-pulse_glow"
+          className="text-base sm:text-lg px-8 sm:px-10 py-3 sm:py-4 min-h-[48px] w-full max-w-xs shadow-xl shadow-theme-primary/50 animate-pulse_glow"
         >
           🎮 Start Quiz!
         </Button>

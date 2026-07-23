@@ -176,10 +176,10 @@ export default function ChatPanel() {
       className={`flex flex-col glass overflow-hidden transition-colors duration-300 rounded-2xl
         ${
           maximized
-            ? 'shadow-2xl'
+            ? 'shadow-2xl h-full'
             : minimized
             ? 'h-14'
-            : 'h-[560px] sm:h-[620px]'
+            : 'h-full min-h-[480px] sm:min-h-[560px] md:h-[560px] lg:h-[620px]'
         }`}
     >
       {/* ── Header ── */}

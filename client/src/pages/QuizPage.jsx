@@ -86,7 +86,7 @@ export default function QuizPage() {
 
   return (
     <div className="relative min-h-screen z-10">
-      <div className="min-h-screen flex flex-col items-center justify-center px-4 pt-24 pb-12">
+      <div className="min-h-screen flex flex-col items-center justify-center px-3 sm:px-4 pt-20 sm:pt-24 pb-8 sm:pb-12">
         <GlassCard className="w-full max-w-2xl">
           {!playerName ? (
             <StartScreen onStart={(name) => setPlayerName(name)} />
@@ -100,15 +100,15 @@ export default function QuizPage() {
           ) : (
             <>
               {/* Header */}
-              <div className="mb-6">
-                <h1 className="text-2xl font-black text-theme-text-main text-center mb-1">
+              <div className="mb-4 sm:mb-6">
+                <h1 className="text-xl sm:text-2xl font-black text-theme-text-main text-center mb-1">
                   ✨ How Well Do You Know Me?
                 </h1>
                 <ProgressBar current={currentIdx + 1} total={questions.length} />
               </div>
 
               {/* Animated question card */}
-              <div className="relative overflow-hidden min-h-[360px] flex items-center">
+              <div className="relative overflow-hidden min-h-[320px] sm:min-h-[360px] flex items-center">
                 <AnimatePresence mode="wait" custom={direction}>
                   <motion.div
                     key={currentIdx}

@@ -38,7 +38,7 @@ export default function App() {
           <Route path="/quiz" element={<QuizPage />} />
           <Route path="/chat" element={<ChatPage />} />
         </Routes>
-        <footer className="fixed bottom-4 left-4 sm:bottom-6 sm:left-6 z-40 pointer-events-none">
+        <footer className="hidden sm:block fixed bottom-4 left-4 sm:bottom-6 sm:left-6 z-40 pointer-events-none">
           <div
             className="glass px-5 py-3 rounded-2xl shadow-xl border-2"
             style={{

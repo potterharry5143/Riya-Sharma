@@ -27,7 +27,7 @@ export default function QuizQuestion({
         initial={{ scale: 0, rotate: -15 }}
         animate={{ scale: 1, rotate: 0 }}
         transition={{ type: 'spring', stiffness: 350, damping: 20, delay: 0.1 }}
-        className="text-5xl text-center mb-4"
+        className="text-4xl sm:text-5xl text-center mb-3 sm:mb-4"
       >
         {question.emoji}
       </motion.div>
@@ -37,13 +37,13 @@ export default function QuizQuestion({
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.15 }}
-        className="text-xl sm:text-2xl font-extrabold text-theme-text-main text-center mb-6 leading-snug"
+        className="text-lg sm:text-xl md:text-2xl font-extrabold text-theme-text-main text-center mb-4 sm:mb-6 leading-snug"
       >
         {question.question}
       </motion.h2>
 
-      {/* Options grid */}
-      <div className="grid grid-cols-2 gap-3 items-stretch">
+      {/* Options grid — 1 col on mobile, 2 cols on sm+ */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 items-stretch">
         <AnimatePresence>
           {question.options.map((option, i) => {
             const isSelected = selectedIndex === i;
@@ -72,10 +72,10 @@ export default function QuizQuestion({
                 onClick={() => !feedback && onAnswer(i)}
                 disabled={!!feedback}
                 className={`
-                  glass px-4 py-4 rounded-2xl text-left font-bold text-theme-text-main
+                  glass px-4 py-4 sm:py-4 rounded-2xl text-left font-bold text-theme-text-main
                   transition-colors duration-200 cursor-pointer text-sm sm:text-base
                   disabled:cursor-default select-none flex items-center gap-2 w-full
-                  border-2 ${isSelected && feedback
+                  min-h-[52px] border-2 ${isSelected && feedback
                     ? feedback === 'correct'
                       ? 'border-green-400'
                       : 'border-red-400'

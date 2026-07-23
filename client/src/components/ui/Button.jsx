@@ -27,7 +27,8 @@ export default function Button({
       transition={{ type: 'spring', stiffness: 400, damping: 17 }}
       className={`
         inline-flex items-center justify-center gap-2
-        px-6 py-3 rounded-full font-bold text-base
+        px-5 sm:px-6 py-2.5 sm:py-3 rounded-full font-bold text-sm sm:text-base
+        min-h-[44px]
         transition-colors duration-200 cursor-pointer
         disabled:opacity-50 disabled:cursor-not-allowed
         select-none outline-none focus-visible:ring-2

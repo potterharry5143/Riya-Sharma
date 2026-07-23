@@ -152,7 +152,7 @@ export default function ResultScreen({ playerName, score, total, onRestart }) {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-[60vh] text-center px-4">
+    <div className="flex flex-col items-center justify-center min-h-[60vh] text-center px-3 sm:px-4">
 
 
       {/* Title */}
@@ -186,7 +186,7 @@ export default function ResultScreen({ playerName, score, total, onRestart }) {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.7 }}
-        className="w-full max-w-sm mb-6 glass p-4"
+        className="w-full max-w-sm sm:max-w-sm mb-6 glass p-3 sm:p-4"
       >
         <h3 className="text-xl font-bold text-theme-text-main mb-3">🏆 Leaderboard</h3>
         {isLoading ? (
@@ -238,13 +238,13 @@ export default function ResultScreen({ playerName, score, total, onRestart }) {
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.85 }}
-        className="flex flex-col sm:flex-row gap-3"
+        className="flex flex-col sm:flex-row gap-3 w-full max-w-sm sm:max-w-none"
       >
-        <Button onClick={onRestart}>🔄 Try Again</Button>
-        <Button variant="secondary" onClick={() => navigate('/chat')}>
+        <Button onClick={onRestart} className="w-full sm:w-auto min-h-[48px]">🔄 Try Again</Button>
+        <Button variant="secondary" onClick={() => navigate('/chat')} className="w-full sm:w-auto min-h-[48px]">
           💬 Chat with AI
         </Button>
-        <Button variant="ghost" onClick={() => navigate('/')}>
+        <Button variant="ghost" onClick={() => navigate('/')} className="w-full sm:w-auto min-h-[48px]">
           🏠 Home
         </Button>
       </motion.div>

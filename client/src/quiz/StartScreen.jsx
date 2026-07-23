@@ -45,7 +45,7 @@ export default function StartScreen({ onStart }) {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center p-8 text-center min-h-[300px]">
+    <div className="flex flex-col items-center justify-center p-4 sm:p-8 text-center min-h-[300px]">
       <motion.div
         initial={{ scale: 0.8, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}

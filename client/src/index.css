@@ -70,7 +70,10 @@
 /* ─── Base ─── */
 *, *::before, *::after { box-sizing: border-box; }
 
-html { scroll-behavior: smooth; }
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden; /* prevent horizontal scroll on mobile */
+}
 
 body {
   margin: 0;
@@ -78,8 +81,10 @@ body {
   background: var(--grad-bg);
   background-attachment: fixed;
   min-height: 100vh;
+  min-height: 100dvh; /* dynamic viewport height for mobile browsers */
   color: var(--color-text-main);
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden; /* belt-and-suspenders: no horizontal scroll */
 }
 
 /* ─── Glassmorphism Card ─── */
@@ -191,5 +196,37 @@ body {
   .shake {
     animation: none !important;
     transition: none !important;
+  }
+}
+
+/* ─── Mobile-specific fixes ─── */
+@media (max-width: 480px) {
+  /* Prevent replaced content from overflowing */
+  img, video, iframe, embed, object {
+    max-width: 100% !important;
+  }
+
+  /* Navbar pill: compress on very small screens */
+  nav .glass {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    gap: 0.25rem;
+  }
+
+  /* Slow down / simplify floating shapes further on tiny screens */
+  .shape-a { animation-duration: 12s; }
+  .shape-b { animation-duration: 15s; }
+  .shape-c { animation-duration: 13s; }
+
+  /* GlassCard inner padding on mobile */
+  .glass {
+    border-radius: 16px;
+  }
+}
+
+/* ─── Safe area padding for notched phones ─── */
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+  .mobile-safe-bottom {
+    padding-bottom: env(safe-area-inset-bottom);
   }
 }
