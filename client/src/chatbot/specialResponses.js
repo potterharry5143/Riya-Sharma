@@ -52,11 +52,15 @@ const specialResponses = {
 export function matchTrigger(text) {
   const lower = text.toLowerCase().trim();
   for (const [key, data] of Object.entries(specialResponses)) {
-    // Word-boundary aware: the trigger can appear anywhere in the message,
-    // surrounded by non-word chars or at start/end.
+    // Only match if the input is exactly the trigger, or the trigger is a very prominent
+    // part of a short message (e.g. "riya!", "who is riya", etc.).
+    // Let's avoid matching if it's a longer question about her.
     const pattern = new RegExp(`(?:^|[^a-z0-9])${key}(?:[^a-z0-9]|$)`);
     if (pattern.test(lower)) {
-      return data;
+      // If it's a short greeting/query (less than 4 words or 25 chars)
+      if (lower.length < 25 || lower.split(' ').length <= 3) {
+        return data;
+      }
     }
   }
   return null;
