@@ -8,7 +8,7 @@ export default function StartScreen({ onStart }) {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    fetch('/api/leaderboard')
+    fetch((import.meta.env.VITE_API_URL || '') + '/api/leaderboard')
       .then(res => res.json())
       .then(data => setLeaderboard(data))
       .catch(err => console.error('Leaderboard error:', err))

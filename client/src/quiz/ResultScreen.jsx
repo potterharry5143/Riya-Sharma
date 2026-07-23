@@ -107,7 +107,7 @@ export default function ResultScreen({ playerName, score, total, onRestart }) {
       try {
         if (!scoreSaved.current && playerName) {
           scoreSaved.current = true;
-          const postRes = await fetch('/api/leaderboard', {
+          const postRes = await fetch((import.meta.env.VITE_API_URL || '') + '/api/leaderboard', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ name: playerName, score }),
@@ -117,7 +117,7 @@ export default function ResultScreen({ playerName, score, total, onRestart }) {
             setSavedEntryId(saved._id);
           }
         }
-        const res = await fetch('/api/leaderboard');
+        const res = await fetch((import.meta.env.VITE_API_URL || '') + '/api/leaderboard');
         const data = await res.json();
         setLeaderboard(data);
       } catch (err) {
