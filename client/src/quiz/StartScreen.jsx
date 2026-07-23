@@ -8,7 +8,7 @@ export default function StartScreen({ onStart }) {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    fetch((import.meta.env.VITE_API_URL || '') + '/api/leaderboard')
+    fetch((import.meta.env.VITE_API_URL || '') + '/api/leaderboard', { cache: 'no-store' })
       .then(res => res.json())
       .then(data => setLeaderboard(data))
       .catch(err => console.error('Leaderboard error:', err))
@@ -93,7 +93,19 @@ export default function StartScreen({ onStart }) {
           <p className="text-sm text-theme-text-muted">No scores yet! Play to be the first! 🌟</p>
         ) : (
           <div className="flex flex-col gap-2">
-            {leaderboard.map((entry, idx) => (
+            {leaderboard.map((entry, idx) => {
+              const entryName = entry.name || entry.username || entry.playerName || 'Unknown';
+              const dateRaw = entry.createdAt || entry.date || entry.timestamp || new Date();
+              const dateObj = new Date(dateRaw);
+              const dateStr = !isNaN(dateObj) ? dateObj.toLocaleString([], {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+              }) : 'Invalid Date';
+
+              return (
               <div
                 key={entry._id || idx}
                 className="flex justify-between items-center px-4 py-2 rounded-xl text-sm font-bold bg-theme-card-bg text-theme-text-main border border-theme-card-border"
@@ -101,19 +113,14 @@ export default function StartScreen({ onStart }) {
                 <div className="flex flex-col text-left">
                   <div className="flex items-center gap-3">
                     <span className="opacity-50">#{idx + 1}</span>
-                    <span className="truncate max-w-[120px]">{entry.name}</span>
+                    <span className="truncate max-w-[120px]">{entryName}</span>
                   </div>
                   <span className="text-xs font-normal opacity-60 mt-0.5 ml-7">
-                    {new Date(entry.createdAt).toLocaleString([], {
-                      month: 'short',
-                      day: 'numeric',
-                      hour: '2-digit',
-                      minute: '2-digit',
-                    })}
+                    {dateStr}
                   </span>
                 </div>
                 <div className="flex items-center gap-3">
-                  <span>{entry.score} pts</span>
+                  <span>{entry.score != null ? entry.score : '?'} pts</span>
                   <button
                     onClick={() => handleDelete(entry._id)}
                     className="opacity-40 hover:opacity-100 transition-opacity"
@@ -123,7 +130,7 @@ export default function StartScreen({ onStart }) {
                   </button>
                 </div>
               </div>
-            ))}
+            )})}
           </div>
         )}
       </motion.div>

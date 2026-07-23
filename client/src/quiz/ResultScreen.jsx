@@ -117,7 +117,7 @@ export default function ResultScreen({ playerName, score, total, onRestart }) {
             setSavedEntryId(saved._id);
           }
         }
-        const res = await fetch((import.meta.env.VITE_API_URL || '') + '/api/leaderboard');
+        const res = await fetch((import.meta.env.VITE_API_URL || '') + '/api/leaderboard', { cache: 'no-store' });
         const data = await res.json();
         setLeaderboard(data);
       } catch (err) {
@@ -195,7 +195,19 @@ export default function ResultScreen({ playerName, score, total, onRestart }) {
           <p className="text-sm text-theme-text-muted">No scores yet! Play to be the first! 🌟</p>
         ) : (
           <div className="flex flex-col gap-2">
-            {leaderboard.map((entry, idx) => (
+            {leaderboard.map((entry, idx) => {
+              const name = entry.name || entry.username || entry.playerName || 'Unknown';
+              const dateRaw = entry.createdAt || entry.date || entry.timestamp || new Date();
+              const dateObj = new Date(dateRaw);
+              const dateStr = !isNaN(dateObj) ? dateObj.toLocaleString([], {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+              }) : 'Invalid Date';
+
+              return (
               <div 
                 key={entry._id || idx}
                 className={`flex justify-between items-center px-4 py-2 rounded-xl text-sm font-bold border
@@ -203,22 +215,17 @@ export default function ResultScreen({ playerName, score, total, onRestart }) {
                     ? 'bg-theme-primary text-theme-text-main border-theme-primary-hover shadow-md' 
                     : 'bg-theme-card-bg text-theme-text-main border-theme-card-border'}`}
               >
-                <div className="flex flex-col">
+                <div className="flex flex-col text-left">
                   <div className="flex items-center gap-3">
                     <span className="opacity-50">#{idx + 1}</span>
-                    <span className="truncate max-w-[120px]">{entry.name}</span>
+                    <span className="truncate max-w-[120px]">{name}</span>
                   </div>
                   <span className="text-xs font-normal opacity-60 mt-0.5 ml-7">
-                    {new Date(entry.createdAt).toLocaleString([], {
-                      month: 'short',
-                      day: 'numeric',
-                      hour: '2-digit',
-                      minute: '2-digit'
-                    })}
+                    {dateStr}
                   </span>
                 </div>
                 <div className="flex items-center gap-3">
-                  <span>{entry.score} / {total}</span>
+                  <span>{entry.score != null ? entry.score : '?'} / {total}</span>
                   <button 
                     onClick={() => handleDelete(entry._id)}
                     className="opacity-40 hover:opacity-100 transition-opacity"
@@ -228,7 +235,7 @@ export default function ResultScreen({ playerName, score, total, onRestart }) {
                   </button>
                 </div>
               </div>
-            ))}
+            )})}
           </div>
         )}
       </motion.div>
