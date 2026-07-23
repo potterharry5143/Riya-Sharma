@@ -134,7 +134,7 @@ export default function ResultScreen({ playerName, score, total, onRestart }) {
     if (!code) return;
 
     try {
-      const res = await fetch(`/api/leaderboard/${id}`, {
+      const res = await fetch(`${import.meta.env.VITE_API_URL || ''}/api/leaderboard/${id}`, {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ code })
